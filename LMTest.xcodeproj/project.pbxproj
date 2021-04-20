@@ -21,6 +21,7 @@
 		BE4F0280262D9EE6009F27D6 /* ActiveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */; };
 		BE4F0285262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0284262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift */; };
 		BE4F0288262DBCC7009F27D6 /* ActiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */; };
+		BE4F0295262EB72C009F27D6 /* CollectionView+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCatalogCell.swift; sourceTree = "<group>"; };
 		BE4F0284262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveFirstNumberCatalogCell.swift; sourceTree = "<group>"; };
 		BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHeader.swift; sourceTree = "<group>"; };
+		BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Cell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				BE4F0273262D7D40009F27D6 /* Bundle + Extension.swift */,
+				BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				BE4F0271262D79A2009F27D6 /* TabBarController.swift in Sources */,
 				BE4F0269262D70FC009F27D6 /* MChat.swift in Sources */,
 				BE4F026D262D7118009F27D6 /* MSection.swift in Sources */,
+				BE4F0295262EB72C009F27D6 /* CollectionView+Cell.swift in Sources */,
 				BE4F0274262D7D40009F27D6 /* Bundle + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

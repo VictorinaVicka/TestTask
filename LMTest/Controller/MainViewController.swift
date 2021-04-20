@@ -9,11 +9,26 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    var collectionView: UICollectionView!
-    var sections = Bundle.main.decode([MSection].self, from: "test.json")
-    var provider: Bundle
-    var dataSourse: UICollectionViewDiffableDataSource<MSection, MChat>?
+    typealias DataSource = UICollectionViewDiffableDataSource<MSection, MChat>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<MSection, MChat>
+    
+    private var sections = Bundle.main.decode([MSection].self, from: "test.json")
+    private var provider: Bundle
+    
+    private lazy var dataSource = makeDataSource()
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createComposLayout())
+        collectionView.backgroundColor = UIColor.white
+        collectionView.register(cellWithClass: ActiveChatCell.self)
+        collectionView.register(cellWithClass: ActiveCatalogCell.self)
+        collectionView.register(cellWithClass: ActiveFirstNumberCatalogCell.self)
+        collectionView.register(viewWithClass: ActiveHeader.self, kind: "header")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
 
+    //MARK: - init
     init(provider: Bundle) {
         self.provider = provider
         super.init(nibName: nil, bundle: nil)
@@ -23,65 +38,86 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-        navigationItem.title = "Поиск товаров"
-        addNavigationBar()
-        addSearchController()
-        setupCV()
+        setup()
         reloadeData()
-        createDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         navigationController?.navigationBar.sizeToFit()
     }
-
-    func setupCV() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createComposLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = #colorLiteral(red: 0.9790343642, green: 0.9791979194, blue: 0.9790129066, alpha: 1)
-        view.addSubview(collectionView)
-        collectionView.register(ActiveChatCell.self, forCellWithReuseIdentifier: ActiveChatCell.reuseId)
-        collectionView.register(ActiveCatalogCell.self, forCellWithReuseIdentifier: ActiveCatalogCell.reuseId)
-        collectionView.register(ActiveFirstNumberCatalogCell.self, forCellWithReuseIdentifier: ActiveFirstNumberCatalogCell.reuseId)
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-        
+    
+    //MARK: - setup
+    private func setup() {
+        view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        navigationItem.title = "Поиск товаров"
+        addNavigationBar()
+        addSearchController()
+        layoutCollectionView()
     }
     
-    func createDataSource() {
-        dataSourse = UICollectionViewDiffableDataSource<MSection, MChat>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, chat) -> UICollectionViewCell? in
+    private func layoutCollectionView() {
+        view.addSubview(collectionView)
+        
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    private func makeDataSource() -> DataSource {
+        let dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { (collectionView, indexPath, chat) -> UICollectionViewCell? in
             switch self.sections[indexPath.section].type {
             case "catalog":
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActiveCatalogCell.reuseId, for: indexPath) as? ActiveCatalogCell
-                cell?.configure(with: chat)
+                let cell = collectionView.dequeue(ActiveCatalogCell.self, for: indexPath)
+                cell.configure(with: chat)
+                
                 return cell
             default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActiveChatCell.reuseId, for: indexPath) as? ActiveChatCell
-                cell?.configure(with: chat)
+                let cell = collectionView.dequeue(ActiveChatCell.self, for: indexPath)
+                cell.configure(with: chat)
+                
                 return cell
             }
         })
+        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            let headerView = collectionView.dequeue(ActiveHeader.self, kind: "header", for: indexPath)
+            
+            return headerView
+        }
+//        dataSource.supplementaryViewProvider = {
+//            collectionView, kind, indexPath in
+//            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ActiveHeader.reuseId, for: indexPath) as? ActiveHeader else { return nil }
+//            guard let firstChat = self.dataSource.itemIdentifier(for: indexPath) else {return nil}
+//            guard let section = self.dataSource.snapshot().sectionIdentifier(containingItem: firstChat) else { return nil }
+//            if section.headerName.isEmpty { return nil }
+//            sectionHeader.headerName.text = section.headerName
+//            return sectionHeader
+//        }
+        
+        return dataSource
     }
     
     func reloadeData() {
         var snapshot = NSDiffableDataSourceSnapshot<MSection, MChat>()
         snapshot.appendSections(sections)
-        
         for section in sections {
             snapshot.appendItems(section.items, toSection: section)
         }
-        dataSourse?.apply(snapshot)
+        dataSource.apply(snapshot)
     }
     
     func createComposLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let section = self.sections[sectionIndex]
-            
+
             switch section.type {
             case "catalog":
                 return self.createСatalogSections()
@@ -92,6 +128,15 @@ class MainViewController: UIViewController {
             }
         }
         return layout
+    }
+    
+    func createHeaderSections() -> NSCollectionLayoutBoundarySupplementaryItem  {
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(40))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize,
+                                                                        elementKind: "header",
+                                                                        alignment: .top)
+        return sectionHeader
     }
     
     func createСatalogSections() -> NSCollectionLayoutSection {
@@ -105,6 +150,9 @@ class MainViewController: UIViewController {
         
         section.contentInsets = .init(top: 32, leading: 16, bottom: 32, trailing: 32)
         section.interGroupSpacing = 16
+        
+//        let sectionHeader = createHeaderSections()
+//        section.boundarySupplementaryItems = [sectionHeader]
         section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
         section.orthogonalScrollingBehavior = .groupPaging
         return section
@@ -120,7 +168,10 @@ class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 32, leading: .zero, bottom: 32, trailing: 32)
         section.interGroupSpacing = 16
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
+        
+        let sectionHeader = createHeaderSections()
+        section.boundarySupplementaryItems = [sectionHeader]
+//        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
         section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
@@ -135,7 +186,10 @@ class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 32, leading: .zero, bottom: 32, trailing: 32)
         section.interGroupSpacing = 16
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
+        
+        let sectionHeader = createHeaderSections()
+        section.boundarySupplementaryItems = [sectionHeader]
+//        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
         section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
@@ -164,6 +218,14 @@ class MainViewController: UIViewController {
         searsh.searchBar.searchTextField.layer.cornerRadius = 4
         searsh.searchBar.searchTextField.leftView = nil
         navigationItem.searchController = searsh
+        
+        searsh.searchBar.showsCancelButton = true
+        if let cancelButton = searsh.searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.setImage(UIImage(systemName: "barcode.viewfinder"), for: .normal)
+            cancelButton.setTitle("", for: .normal)
+            cancelButton.backgroundColor = .white
+            cancelButton.tintColor = .gray
+        }
     }
 }
 

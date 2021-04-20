@@ -16,10 +16,9 @@ class ActiveCatalogCell: UICollectionViewCell {
         layer.cornerRadius = 4.0
         clipsToBounds = true
         addConstraints()
-        
     }
     
-    var nameLabel: UILabel = {
+    let nameLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -29,7 +28,7 @@ class ActiveCatalogCell: UICollectionViewCell {
         return label
     }()
     
-    var imageView: UIImageView = {
+    let imageView: UIImageView = {
        let imageView = UIImageView()
 //        imageView.image = UIImage(named: "8")
         imageView.contentMode = .scaleAspectFill
@@ -49,18 +48,18 @@ class ActiveCatalogCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8)
-        ])
-        nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+//        NSLayoutConstraint.activate([
+//            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+//            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            imageView.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+//            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8)
+//        ])
+//        nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
 
     }
 }

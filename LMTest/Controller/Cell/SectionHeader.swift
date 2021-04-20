@@ -1,15 +1,15 @@
 //
-//  ActiveHeader.swift
+//  SectionHeader.swift
 //  LMTest
 //
-//  Created by Виктория Воробьева on 19.04.2021.
+//  Created by Виктория Воробьева on 20.04.2021.
 //
 
 import UIKit
 
-class ActiveHeader: UICollectionReusableView{
+class SectionHeader: UICollectionReusableView {
     
-    static let reuseId = "ActiveHeader"
+//    static let kind = "header"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,7 +40,9 @@ class ActiveHeader: UICollectionReusableView{
         ])
     }
     
-    func configure(_ title: MSection) {
-        headerName.text = title.headerName
+    func configure(text: String, font: UIFont?, textColor: UIColor) {
+        headerName.text = text
+        headerName.textColor = textColor
+        headerName.font = font
     }
 }

@@ -33,7 +33,7 @@ class ActiveChatCell: UICollectionViewCell {
         return label
     }()
     
-     let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)

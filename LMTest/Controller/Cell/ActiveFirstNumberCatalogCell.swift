@@ -9,6 +9,7 @@ import UIKit
 
 class ActiveFirstNumberCatalogCell: UICollectionViewCell {
     static var reuseId: String = "ActiveFirstNumberCatalogCell"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.4317904115, green: 0.8198150992, blue: 0.3567215204, alpha: 1)
@@ -21,14 +22,14 @@ class ActiveFirstNumberCatalogCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var nameLabel: UILabel = {
+    let nameLabel: UILabel = {
        let label = UILabel()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return label
     }()
     
-    var imageView: UIImageView = {
+    let imageView: UIImageView = {
        let imageView = UIImageView()
         return imageView
     }()
