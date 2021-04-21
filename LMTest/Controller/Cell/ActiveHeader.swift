@@ -9,8 +9,6 @@ import UIKit
 
 class ActiveHeader: UICollectionReusableView{
     
-    static let reuseId = "ActiveHeader"
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,7 +22,7 @@ class ActiveHeader: UICollectionReusableView{
     lazy var headerName: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
@@ -38,9 +36,5 @@ class ActiveHeader: UICollectionReusableView{
             headerName.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             headerName.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-    }
-    
-    func configure(_ title: MSection) {
-        headerName.text = title.headerName
     }
 }

@@ -9,8 +9,6 @@ import UIKit
 
 class ActiveChatCell: UICollectionViewCell {
     
-    static var reuseId: String = "ActiveChatCell"
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 5
@@ -19,24 +17,25 @@ class ActiveChatCell: UICollectionViewCell {
         
     }
     
-    let imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.image = UIImage(named: "1")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let priceLabel: UILabel = {
+    fileprivate lazy var priceLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
-    let nameLabel: UILabel = {
+    fileprivate lazy var nameLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 2
         return label
     }()
@@ -65,11 +64,11 @@ class ActiveChatCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            imageView.heightAnchor.constraint(equalToConstant: self.frame.width - 16)
+            imageView.heightAnchor.constraint(equalToConstant: self.frame.width - 28)
         ])
         
         NSLayoutConstraint.activate([
-            priceLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            priceLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             priceLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             priceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             priceLabel.heightAnchor.constraint(equalToConstant: 15)

@@ -19,9 +19,9 @@
 		BE4F0274262D7D40009F27D6 /* Bundle + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0273262D7D40009F27D6 /* Bundle + Extension.swift */; };
 		BE4F027C262D9DF9009F27D6 /* ActiveChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F027B262D9DF9009F27D6 /* ActiveChatCell.swift */; };
 		BE4F0280262D9EE6009F27D6 /* ActiveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */; };
-		BE4F0285262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0284262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift */; };
 		BE4F0288262DBCC7009F27D6 /* ActiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */; };
 		BE4F0295262EB72C009F27D6 /* CollectionView+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */; };
+		BE4F02AC26306DF5009F27D6 /* CreateCollectionLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +39,9 @@
 		BE4F0273262D7D40009F27D6 /* Bundle + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + Extension.swift"; sourceTree = "<group>"; };
 		BE4F027B262D9DF9009F27D6 /* ActiveChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatCell.swift; sourceTree = "<group>"; };
 		BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCatalogCell.swift; sourceTree = "<group>"; };
-		BE4F0284262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveFirstNumberCatalogCell.swift; sourceTree = "<group>"; };
 		BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHeader.swift; sourceTree = "<group>"; };
 		BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Cell.swift"; sourceTree = "<group>"; };
+		BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionLayoutSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +109,7 @@
 			children = (
 				BE4F027A262D9DE2009F27D6 /* Cell */,
 				BE4F024B2629B157009F27D6 /* MainViewController.swift */,
+				BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */,
 				BE4F0270262D79A2009F27D6 /* TabBarController.swift */,
 			);
 			path = Controller;
@@ -119,7 +120,6 @@
 			children = (
 				BE4F027B262D9DF9009F27D6 /* ActiveChatCell.swift */,
 				BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */,
-				BE4F0284262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift */,
 				BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */,
 			);
 			path = Cell;
@@ -205,12 +205,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4F024C2629B157009F27D6 /* MainViewController.swift in Sources */,
+				BE4F02AC26306DF5009F27D6 /* CreateCollectionLayoutSection.swift in Sources */,
 				BE4F02482629B157009F27D6 /* AppDelegate.swift in Sources */,
 				BE4F0280262D9EE6009F27D6 /* ActiveCatalogCell.swift in Sources */,
 				BE4F024A2629B157009F27D6 /* SceneDelegate.swift in Sources */,
 				BE4F0288262DBCC7009F27D6 /* ActiveHeader.swift in Sources */,
 				BE4F027C262D9DF9009F27D6 /* ActiveChatCell.swift in Sources */,
-				BE4F0285262DB982009F27D6 /* ActiveFirstNumberCatalogCell.swift in Sources */,
 				BE4F0271262D79A2009F27D6 /* TabBarController.swift in Sources */,
 				BE4F0269262D70FC009F27D6 /* MChat.swift in Sources */,
 				BE4F026D262D7118009F27D6 /* MSection.swift in Sources */,
