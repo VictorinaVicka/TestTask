@@ -2,11 +2,12 @@
 Верстка главной страницы приложения Leroy Merlin
 
 
-###  Реализация благодаря: 
+###  Реализация: 
 
-- Не использованию StoryBoard 
-- Использования UICollectionViewCompositionalLayout
+- Не используется StoryBoard 
+- Используется UICollectionViewCompositionalLayout
 - Bundle
-- создания интерфейса через UICollectionView
+- Создание интерфейса через UICollectionView
+- MVC
 
 ![hippo](https://github.com/VictorinaVicka/TestTask/raw/master/review/review.gif)
