@@ -35,5 +35,4 @@ extension UICollectionView {
         
         return view
     }
-    
 }

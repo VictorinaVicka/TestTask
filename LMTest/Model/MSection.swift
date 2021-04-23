@@ -12,3 +12,9 @@ struct MSection: Decodable, Hashable {
     let headerName: String
     let items: [MChat]
 }
+
+enum SectionHeaderName: Int, CaseIterable {
+    case catalog
+    case limited
+    case bestPrice
+}

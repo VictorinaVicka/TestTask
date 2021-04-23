@@ -67,57 +67,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    private func makeDataSource() -> DataSource {
-        let dataSource = DataSource(
-            collectionView: collectionView,
-            cellProvider: { (collectionView, indexPath, chat) -> UICollectionViewCell? in
-            switch self.sections[indexPath.section].type {
-            case "catalog":
-                let cell = collectionView.dequeue(ActiveCatalogCell.self, for: indexPath)
-                cell.configure(with: chat)
-                
-                return cell
-            default:
-                let cell = collectionView.dequeue(ActiveChatCell.self, for: indexPath)
-                cell.configure(with: chat)
-                
-                return cell
-            }
-        })
-        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            let headerView = collectionView.dequeue(ActiveHeader.self, kind: "header", for: indexPath)
-            headerView.headerName.text = self.sections[indexPath.section].headerName
-            return headerView
-        }
-        return dataSource
-    }
-    
-    func reloadeData() {
-        var snapshot = NSDiffableDataSourceSnapshot<MSection, MChat>()
-        snapshot.appendSections(sections)
-        for section in sections {
-            snapshot.appendItems(section.items, toSection: section)
-        }
-        dataSource.apply(snapshot)
-    }
-    
-    func createComposLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            let section = self.sections[sectionIndex]
-            let layoutSection = CreateCollectionLayoutSection(environment: layoutEnvironment)
-
-            switch section.type {
-            case "catalog":
-                return layoutSection.createСatalogSections()
-            case "limited":
-                return layoutSection.createLimitedSections()
-            default:
-                return layoutSection.createBestSections()
-            }
-        }
-        return layout
-    }
-    
     private func addNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = false
@@ -157,4 +106,121 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
         }
     }
+    
+    // MARK: - DataSource
+    
+    private func makeDataSource() -> DataSource {
+        let dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { (collectionView, indexPath, chat) -> UICollectionViewCell? in
+                
+                guard let section = SectionHeaderName(rawValue: indexPath.section) else { fatalError("This section does not exist") }
+                
+                switch section {
+                case .catalog:
+                    let cell = collectionView.dequeue(ActiveCatalogCell.self, for: indexPath)
+                    cell.configure(with: chat)
+                    
+                    return cell
+                default:
+                    let cell = collectionView.dequeue(ActiveChatCell.self, for: indexPath)
+                    cell.configure(with: chat)
+                    
+                    return cell
+                }
+            })
+        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            let headerView = collectionView.dequeue(ActiveHeader.self, kind: "header", for: indexPath)
+            headerView.headerName.text = self.sections[indexPath.section].headerName
+            return headerView
+        }
+        return dataSource
+    }
+    
+    func reloadeData() {
+        var snapshot = NSDiffableDataSourceSnapshot<MSection, MChat>()
+        snapshot.appendSections(sections)
+        for section in sections {
+            snapshot.appendItems(section.items, toSection: section)
+        }
+        dataSource.apply(snapshot)
+    }
+    
+    // MARK: - CollectionViewLayout
+    
+    func createComposLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let layoutSection = SectionHeaderName(rawValue: sectionIndex) else { fatalError("This section does not exist") }
+            switch layoutSection {
+            case .catalog:
+                return self.createСatalogSections()
+            case .limited:
+                return self.createLimitedSections()
+            case .bestPrice:
+                return self.createBestSections()
+            }
+        }
+        return layout
+    }
+    
+    func createСatalogSections() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(120))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 32, leading: 16, bottom: 32, trailing: 32)
+        section.interGroupSpacing = 16
+        
+        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), elementKind: "header", alignment: .top)]
+        section.orthogonalScrollingBehavior = .groupPaging
+        return section
+    }
+    
+    func createLimitedSections() -> NSCollectionLayoutSection  {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .absolute(200))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 50, trailing: 20)
+        section.interGroupSpacing = 16
+        
+        let sectionHeader = createHeaderSections()
+        section.boundarySupplementaryItems = [sectionHeader]
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
+    func createBestSections() -> NSCollectionLayoutSection  {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .absolute(200))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 32, leading: 8, bottom: 32, trailing: 8)
+        section.interGroupSpacing = 16
+        
+        let sectionHeader = createHeaderSections()
+        section.boundarySupplementaryItems = [sectionHeader]
+        section.orthogonalScrollingBehavior = .continuous
+        return section
+    }
+    
+    private func createHeaderSections() -> NSCollectionLayoutBoundarySupplementaryItem  {
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(40))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize,
+                                                                        elementKind: "header",
+                                                                        alignment: .top)
+        return sectionHeader
+    }
+    
 }

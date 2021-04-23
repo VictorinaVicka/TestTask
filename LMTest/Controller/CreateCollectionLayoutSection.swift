@@ -72,4 +72,6 @@ class CreateCollectionLayoutSection {
         section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
+    
+    
 }

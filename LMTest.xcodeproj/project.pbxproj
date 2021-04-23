@@ -21,7 +21,6 @@
 		BE4F0280262D9EE6009F27D6 /* ActiveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */; };
 		BE4F0288262DBCC7009F27D6 /* ActiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */; };
 		BE4F0295262EB72C009F27D6 /* CollectionView+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */; };
-		BE4F02AC26306DF5009F27D6 /* CreateCollectionLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		BE4F027F262D9EE6009F27D6 /* ActiveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCatalogCell.swift; sourceTree = "<group>"; };
 		BE4F0287262DBCC7009F27D6 /* ActiveHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHeader.swift; sourceTree = "<group>"; };
 		BE4F0294262EB72C009F27D6 /* CollectionView+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Cell.swift"; sourceTree = "<group>"; };
-		BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionLayoutSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +76,7 @@
 				BE4F0279262D9B31009F27D6 /* Controller */,
 				BE4F0276262D7EB6009F27D6 /* Extensions */,
 				BE4F0267262D70CF009F27D6 /* Model */,
-				BE4F0263262D7088009F27D6 /* test.json */,
-				BE4F02502629B158009F27D6 /* Assets.xcassets */,
-				BE4F02522629B158009F27D6 /* LaunchScreen.storyboard */,
+				BE4F02B32632C05E009F27D6 /* AuxiliaryFiles */,
 				BE4F02552629B158009F27D6 /* Info.plist */,
 			);
 			path = LMTest;
@@ -109,7 +105,6 @@
 			children = (
 				BE4F027A262D9DE2009F27D6 /* Cell */,
 				BE4F024B2629B157009F27D6 /* MainViewController.swift */,
-				BE4F02AB26306DF5009F27D6 /* CreateCollectionLayoutSection.swift */,
 				BE4F0270262D79A2009F27D6 /* TabBarController.swift */,
 			);
 			path = Controller;
@@ -132,6 +127,16 @@
 				BE4F02472629B157009F27D6 /* AppDelegate.swift */,
 			);
 			path = MultipleSections;
+			sourceTree = "<group>";
+		};
+		BE4F02B32632C05E009F27D6 /* AuxiliaryFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BE4F0263262D7088009F27D6 /* test.json */,
+				BE4F02522629B158009F27D6 /* LaunchScreen.storyboard */,
+				BE4F02502629B158009F27D6 /* Assets.xcassets */,
+			);
+			path = AuxiliaryFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +210,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4F024C2629B157009F27D6 /* MainViewController.swift in Sources */,
-				BE4F02AC26306DF5009F27D6 /* CreateCollectionLayoutSection.swift in Sources */,
 				BE4F02482629B157009F27D6 /* AppDelegate.swift in Sources */,
 				BE4F0280262D9EE6009F27D6 /* ActiveCatalogCell.swift in Sources */,
 				BE4F024A2629B157009F27D6 /* SceneDelegate.swift in Sources */,

@@ -24,19 +24,3 @@ extension Bundle {
         return loaded
     }
 }
-
-
-
-//class FileParsing {
-//    func parse(completion: @escaping(Result<[MSection], Error>) -> Void) {
-//        if let url = Bundle.main.path(forResource: "test", ofType: "json") {
-//            do {
-//                let data = try Data(contentsOf: URL(fileURLWithPath: url), options: .mappedIfSafe)
-//                let json = try JSONDecoder().decode([MSection].self, from: data)
-//                completion(.success(json))
-//            } catch let error {
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-//}
